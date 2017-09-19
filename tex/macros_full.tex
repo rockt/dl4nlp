@@ -1,0 +1,263 @@
+\let\newcite\citet
+
+\input{/Users/rockt/workspace/bibtex/rockt/colors}
+%\input{/Users/rockt/workspace/bibtex/rockt/todo}
+\input{/Users/rockt/workspace/bibtex/rockt/tikz/macros}
+\input{/Users/rockt/workspace/bibtex/rockt/tikz/shapes}
+\input{/Users/rockt/workspace/bibtex/rockt/tikz/tikztensor}
+
+% Aliases
+\let\op\operatorname
+\let\mb\mathbf
+\let\mc\mathcal
+
+% Text
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\cf}{\emph{cf.}}
+
+% Misc Math
+\let\union\cup
+\let\dom\mathcal
+\let\set\dom 
+\newcommand\ls[1]{\textsc{#1}}
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\E{\mathbb{E}}
+\def\C{\mathbb{C}}
+\renewcommand\vec[1]{{\bm{#1}}}
+\let\mat\bm
+\let\ten\mathcal
+\let\frk\mathfrak
+\let\infinity\infty 
+\let\grad\nabla
+\let\mul\odot
+\newcommand\onehot[1]{\vec{1}_{#1}}
+
+\makeatletter
+\newcommand*\bdot{\mathpalette\bdot@{.5}}
+\newcommand*\bdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+
+% Optimization
+\def\loss{\mathcal{L}}
+\def\params{{\vec{\theta}}}
+\def\globalloss{\mathfrak{L}}
+
+% Neural Network Modules
+\newcommand{\module}[1]{\verb~#1~}
+\def\ndot{\module{dot}}
+\def\sigm{\module{sigm}}
+\def\nlog{\module{log}}
+\def\relu{\module{ReLU}}
+\def\rnn{\module{RNN}}
+\def\lstm{\module{LSTM}}
+\def\cell{\module{cell}}
+\def\cons{\module{concat}}
+\def\split{\module{split}}
+\def\mul{\module{matmul}} % fixme: clash with component-wise mul
+\let\matmul\mul
+\def\ntanh{\module{tanh}}
+\def\nsoftmax{\module{softmax}}
+\def\nunify{\module{sim}}
+
+% Math operators
+\DeclareMathOperator{\softmax}{softmax}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\let\sigmoid\sigma
+\DeclareMathOperator{\unify}{unify}
+\DeclareMathOperator{\real}{real}
+\DeclareMathOperator{\imag}{imag}
+\DeclareMathOperator{\diag}{diag}
+
+
+% Logic
+\newcommand{\rel}[1]{\verb~#1~}
+\newcommand{\const}[1]{\textsc{#1}}
+\let\ent\const
+\newcommand{\var}[1]{\textsc{#1}}
+\def\lif{\ \text{:--}\ }
+%\newcommand{\ldiff}[1]{\bm{[} #1 \bm{]}}
+\newcommand{\ldiff}[1]{\left\llbracket #1 \right\rrbracket}
+\let\lrule\textsc
+\def\lneg{\neg\,}
+\let\land\wedge
+\let\lor\vee
+\let\implies\Rightarrow
+\let\subs\Psi
+
+% Legacy
+\newcommand{\pred}[1]{\text{$\verb~#1~$}}
+\newcommand{\sneg}{\text{$\neg$}}
+\newcommand{\sand}{\text{$\wedge$}}
+\newcommand{\sor}{\text{$\vee$}}
+\newcommand{\simpl}{\text{$\:\Rightarrow\:$}}
+\newcommand{\sforall}{\text{$\forall$}}
+\newcommand{\sexists}{\text{$\exists$}}
+\newcommand{\denote}[1]{\left[#1\right]}
+\newcommand{\dEntity}[1]{\denote{#1}}
+\newcommand{\dRelation}[1]{\denote{#1}}
+\newcommand{\dFormula}[1]{\denote{\mathcal{#1}}}
+\newcommand{\lForm}{\mathcal{F}}
+\newcommand{\lImp}{\Rightarrow}
+\newcommand{\lTrue}{\text{true}}
+\newcommand{\lFalse}{\text{false}}
+\global\long\def\T{\mathcal{T}}
+\global\long\def\A{\mathbf{A}}
+\global\long\def\V{\mathbf{V}}
+\global\long\def\Th{\boldsymbol{\Theta}}
+\global\long\def\a{\mathbf{a}}
+\global\long\def\v{\mathbf{v}}
+%\global\long\def\tt{$t^{+}$}
+%\global\long\def\ft{$t^{-}$}
+
+
+
+% RTE
+
+% LOG
+\newcommand{\emb}[1]{\ensuremath{\vec{v}_{#1}}}
+
+% FOIL
+\def \Real {\mathbb{R}}
+\def \cleq {\leq} %component-wise \leq
+\def \cgeq {\geq}
+\newcommand{\ffact}[2]{\langle #1,#2\rangle}
+\newcommand{\frel}[1]{\bm{#1}}
+\newcommand{\fent}[1]{\bm{#1}}
+\newcommand{\femb}[1]{\bm{#1}}
+\newcommand{\dotre}[2]{\frel{#1}^\top\fent{#2}}
+
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\rul}{rule}
+
+% NTP
+\newcommand{\vent}[1]{\emb{\ent{#1}}}
+\newcommand{\vrel}[1]{\emb{\footnotesize\rel{#1}}}
+\let\vconst\vent
+\let\success\tau
+\newcommand{\ndiff}[1]{{\color{nice-red}#1}}
+\newcommand{\atom}[1]{\textsc{#1}}
+\newcommand{\rparam}[1]{\bm{\theta}_{#1}}
+\newcommand{\rph}[1]{\#_{#1}}
+\newcommand{\q}{?-- }
+
+\newcommand{\exrel}[1]{\textsc{R}_{#1}}
+\newcommand{\exconst}[1]{\textsc{C}_{#1}}
+\newcommand{\nvar}[1]{X_{#1}}
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=-0.5] {\strut #1};}
+\newcommand{\varg}[1]{\text{\#}_{#1}}
+\let\vect\vec
+\newcommand{\ntpor}{\underline{\textsc{Or}}}
+\newcommand{\ntpand}{\underline{\textsc{And}}}
+\newcommand{\eone}{\textsc{Abraham}}
+\newcommand{\etwo}{\textsc{Lisa}}
+\newcommand{\ethree}{\textsc{Bart}}
+\newcommand{\efour}{\textsc{Homer}}
+\newcommand{\efive}{\textsc{Abe}}
+\newcommand{\subsuccess}{\tau}
+%\newcommand{rule}[2]{#2 $\Rightarrow$ #1}
+%\newcommand{\rule}[2]{#1 :-- #2.}
+%\newcommand{\birule}[3]{\rule{#1}{#2 $\wedge$ #3}}
+%\newcommand{\birule}[3]{\rule{#1}{#2, #3}}
+
+
+
+% tikZ
+\tikzstyle{cnode} = [draw, circle, minimum size=1cm]
+\tikzstyle{op} = [color=nice-red]
+\tikzstyle{input} = [cnode, fill=black!20]
+\tikzstyle{param} = [cnode, color=nice-blue, fill=nice-blue!20]
+\tikzstyle{output} = [cnode, color=nice-red, fill=nice-red!20, dashed]
+\tikzstyle{grad} = [color=nice-red!80!black]
+\tikzstyle{op left} = [below left=0.4cm]
+\tikzstyle{op right} = [below right=0.4cm]
+\tikzstyle{op below} = [below=0.75cm]
+\tikzstyle{op above} = [above=0.75cm]
+\tikzstyle{op above left} = [above left=0.4cm]
+\tikzstyle{op above right} = [above right=0.4cm]
+
+
+% TODOs
+\newcommand{\tim}[1]{{\color{nice-blue}TR: #1}}
+
+\def\blah{\textbf{\color{red}???}}
+\def\itodo{\textbf{\color{red}TODO}}
+\let\todonote\todo
+%\renewcommand{todo}{}
+
+\colorlet{fixme}{red!85!black}
+\colorlet{fixme-bright}{fixme!25}
+
+\colorlet{todo}{orange!85!black}
+\colorlet{todo-bright}{todo!25}
+
+\colorlet{review}{nice-yellow!50!nice-orange}
+\colorlet{review-bright}{review!25}
+
+\colorlet{maybe}{nice-yellow}
+\colorlet{maybe-bright}{maybe!25}
+
+\colorlet{toref}{purple!70!black}
+\colorlet{toref-bright}{toref!25}
+
+\colorlet{info}{green!50!black}
+\colorlet{info-bright}{info!25}
+
+\colorlet{cut}{black!60}
+\colorlet{cut-bright}{cut!25}
+
+\colorlet{extend}{blue!85!black}
+\colorlet{extend-bright}{extend!25}
+
+\colorlet{discuss}{nice-red!50!black}
+\colorlet{discuss-bright}{discuss!25}
+
+
+%\newcommand{\comment}[1]{}
+\newcommand{\fixme}[1]{\todonote[linecolor=fixme, backgroundcolor=fixme-bright, bordercolor=fixme]{\thesection{} {\bf\color{fixme}FIXME} #1}{}}
+\newcommand{\hlfixme}[2]{{\sethlcolor{fixme-bright}\hl{#1}}\fixme{#2}}
+
+\renewcommand{\todo}[1]{\todonote[linecolor=todo, backgroundcolor=todo-bright, bordercolor=todo]{\thesection{} {\bf\color{todo}TODO} #1}{}}
+\newcommand{\hltodo}[2]{{\sethlcolor{todo-bright}\hl{#1}}\todo{#2}}
+
+\newcommand{\review}[1]{\todonote[linecolor=review, backgroundcolor=review-bright, bordercolor=review]{\thesection{} {\bf\color{review}CHECK} #1}{}}
+\newcommand{\hlreview}[2]{{\sethlcolor{review-bright}\hl{#1}}\review{#2}}
+\let\check\review
+\let\hlcheck\hlreview
+
+\newcommand{\toref}[1]{\todonote[linecolor=toref, backgroundcolor=toref-bright, bordercolor=toref]{\thesection{} {\bf\color{toref}REF} #1}{}}
+\newcommand{\hltoref}[2]{{\sethlcolor{toref-bright}\hl{#1}}\toref{#2}}
+
+\newcommand{\cut}[1]{\todonote[linecolor=cut, backgroundcolor=cut-bright, bordercolor=cut]{\thesection{} {\bf\color{cut}CUT} #1}{}}
+\newcommand{\hlcut}[2]{{\sethlcolor{cut-bright}\hl{#1}}\cut{#2}}
+
+\newcommand{\extend}[1]{\todonote[linecolor=extend, backgroundcolor=extend-bright, bordercolor=extend]{\thesection{} {\bf\color{extend}EXTEND} #1}{}}
+\newcommand{\hlextend}[2]{{\sethlcolor{extend-bright}\hl{#1}}\extend{#2}}
+
+%\newcommand{\info}[1]{\todonote[linecolor=info, backgroundcolor=info-bright, bordercolor=info]{\thesection{} #1}{}}
+%\newcommand{\hlinfo}[2]{{\sethlcolor{info-bright}\hl{#1}}\info{#2}}
+\newcommand{\info}[1]{}
+\newcommand{\hlinfo}[2]{}
+
+%\newcommand{\maybe}[1]{\todonote[linecolor=maybe, backgroundcolor=maybe-bright, bordercolor=maybe]{\thesection{} {\bf\color{maybe}MAYBE} #1}{}}
+%\newcommand{\hlmaybe}[2]{{\sethlcolor{maybe-bright}\hl{#1}}\maybe{#2}}
+\newcommand{\maybe}[1]{}
+\newcommand{\hlmaybe}[2]{}
+
+\newcommand{\discuss}[1]{\todonote[linecolor=discuss, backgroundcolor=discuss-bright, bordercolor=discuss]{\thesection{} {\bf\color{discuss}DISCUSS} #1}{}}
+\newcommand{\hldiscuss}[2]{{\sethlcolor{discuss-bright}\hl{#1}}\discuss{#2}}
+
+
+%%% Local Variables:
+%%% TeX-master: "thesis"
+%%% End:
+
+
+
+
+
