@@ -1,0 +1,66 @@
+$$
+
+% Misc Math
+\let\union\cup
+\let\dom\mathcal
+\let\set\dom 
+\newcommand\ls[1]{\verb~#1~}
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\E{\mathbb{E}}
+\def\C{\mathbb{C}}
+\renewcommand\vec[1]{{\mathbf{#1}}}
+\let\mat\mathbf
+\let\ten\mathcal
+\let\infinity\infty 
+\let\grad\nabla
+\let\mul\odot
+\newcommand\onehot[1]{\vec{1}_{#1}}
+
+% Optimization
+\def\loss{\mathcal{L}}
+\def\params{{\vec{\theta}}}
+\def\globalloss{\mathfrak{L}}
+
+% Neural Network Modules
+\newcommand{\module}[1]{\verb~#1~}
+\def\ndot{\module{dot}}
+\def\sigm{\module{sigm}}
+\def\nlog{\module{log}}
+\def\relu{\module{ReLU}}
+\def\rnn{\module{RNN}}
+\def\lstm{\module{LSTM}}
+\def\cell{\module{cell}}
+\def\cons{\module{concat}}
+\def\split{\module{split}}
+\def\mul{\module{matmul}} % fixme: clash with component-wise mul
+\let\matmul\mul
+\def\ntanh{\module{tanh}}
+\def\nsoftmax{\module{softmax}}
+\def\nunify{\module{sim}}
+
+
+% Math operators
+\DeclareMathOperator{\softmax}{softmax}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\let\sigmoid\sigma
+\DeclareMathOperator{\unify}{unify}
+\DeclareMathOperator{\real}{real}
+\DeclareMathOperator{\imag}{imag}
+\DeclareMathOperator{\diag}{diag}
+
+
+
+\require{color}
+\definecolor{nice-red}{RGB}{228, 26, 28}
+\definecolor{nice-orange}{RGB}{255, 127, 0}
+\definecolor{nice-yellow}{RGB}{255, 192, 32}
+\definecolor{nice-green}{RGB}{77, 175, 74}
+\definecolor{nice-blue}{RGB}{55, 126, 184}
+\definecolor{nice-purple}{RGB}{152, 78, 163}
+
+% TODOs
+\def\blah{\textbf{\color{red}???}}
+\def\todo{\textbf{\color{red}TODO}}
+$$

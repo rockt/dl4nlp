@@ -1,0 +1,111 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\input{/Users/rockt/workspace/rockt-thesis/thesis/packages}
+\input{/Users/rockt/workspace/rockt-thesis/thesis/macros}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, node distance=2cm and 2cm, -Latex, very thick, auto]
+  \draw[line width = 3pt, dashed, opacity=0.5] (-11,-8.5) rectangle (1,5);
+  \draw[line width = 3pt, opacity=0.2] (-13.5,-1) rectangle (-11.5,5);
+  \draw[line width = 3pt, nice-red, opacity=0.2] (1.5,-1) rectangle (3.5,5);
+  \node[opacity=0.5, anchor=north west] at (-11,5) {\Large LSTM cell};
+  
+  \node[cnode] (c) {$\vec{c}_t$};
+  \node[cnode, minimum size=0.8cm] at (c) {};
+  \node[cnode, below = 2cm of c] (in) {$u_6$};
+
+  \draw[] (in) -- (c);
+
+  \node[cnode, above of = c] (tanh) {$u_{10}$};
+  \node[cnode, above of = tanh] (ht) {$\vec{h}_t$};
+  \node[cnode, left = 3cm of ht, dotted] (otanh) {$\vec{o}_t$};
+  \node[below = 0.2cm of otanh, opacity=0.5] {Output Gates};
+  \node[cnode, left = 5cm of ht] (o) {$u_{12}$};
+  \node[cnode, left = 1cm of o] (om) {$u_{11}$};
+  \draw[] (c) -- (tanh) node[op left] {$\ntanh$};
+  \draw[] (tanh) -- (ht) node[op left] {$\odot$};
+  \draw[] (o) -- (otanh) node[op right] {\sigm};
+  \draw[] (otanh) -- (ht);
+ 
+  \node[output, above = 1.5cm of ht] (htact) {$\vec{h}_t$};
+  \node[output, right = 1.5cm of ht] (htt) {$\vec{h}_t$};
+  \node[output, right = 1.5cm of c] (st) {$\vec{c}_t$};
+  \draw[] (ht) -- (htact);
+  \draw[] (ht) -- (htt);
+  \draw[] (c) -- (st);
+
+  \node[cnode, left of = c] (fc) {$u_9$};
+  \node[cnode, left of = fc, dotted] (ftanh) {$\vec{f}_t$};
+  \node[below = 0.2cm of ftanh, opacity=0.5] {Forget Gates};
+  \node[cnode, left of = ftanh] (f) {$u_8$};
+  \node[cnode, left of = f] (fm) {$u_7$};
+  \draw[] (f) -- (ftanh) node[op right] {\sigm};
+  \draw[] (fc) -- (c) node[op left] {$+$}; 
+  \draw[] (ftanh) -- (fc);
+
+  \node[cnode, below = 2cm of f] (i) {$u_5$};
+  \node[cnode, left of = i] (im) {$u_4$};
+  \node[cnode, right of = i, dotted] (itanh) {$\vec{i}_t$};
+  \node[below = 0.2cm of itanh, opacity=0.5] {Input Gates};
+  \node[cnode, below = 2cm of in] (zin) {$u_3$};
+  \draw[] (itanh) -- (in) node[op left] {$\odot$};
+  \draw[] (i) -- (itanh) node[op right] {\sigm};
+  \draw[] (zin) -- (in);
+
+ 
+  \node[param, below = 0.5cm of om] (Wo) {$\mat{W}^o$};
+  \node[param, below = 0.5cm of fm] (Wf) {$\mat{W}^f$};
+  \node[param, below = 0.5cm of im] (Wi) {$\mat{W}^i$};
+  \draw[] (Wo) -- (om) node [op right] {\matmul};
+  \draw[] (Wf) -- (fm) node [op right] {\matmul};
+  \draw[] (Wi) -- (im) node [op right] {\matmul};
+  \node[cnode, below = 0.5cm of Wi] (zm) {$u_1$};
+  \node[cnode, right = 1cm of zm] (zz) {$u_2$};
+
+
+  \node[param, below = 0.5cm of zm] (Wc) {$\mat{W}^c$};
+  \draw[] (Wc) -- (zm) node [op right] {\matmul};
+  \draw[] (zm) -- (zz) node [op right] {$+$};
+  \draw[] (zz) -- (zin) node[op left] {\ntanh};
+
+
+  \node[param, below = 0.5cm of o] (bo) {$\mat{b}^o$};
+  \node[param, below = 0.5cm of f] (bf) {$\mat{b}^f$};
+  \node[param, below = 0.5cm of i] (bi) {$\mat{b}^i$};
+  \node[param, below = 0.5cm of zz] (bc) {$\mat{b}^c$};
+
+  \draw[] (om) -- (o);
+  \draw[] (bo) -- (o) node[op right] {$+$};
+  \draw[] (fm) -- (f);
+  \draw[] (bf) -- (f) node[op right] {$+$};
+  \draw[] (im) -- (i);
+  \draw[] (bi) -- (i) node[op right] {$+$};
+  \draw[] (bc) -- (zz);
+
+
+  \node[cnode, left = 1cm of Wf] (z) {$\vec{z}_t$};
+
+  \draw[] (z) -| ($(z)!0.5!(fm)$) |- (fm);
+  \draw[] (z) -| ($(z)!0.5!(fm)$) |- (im); 
+  \draw[] (z) -| ($(z)!0.5!(fm)$) |- (om); 
+  \draw[] (z) -| ($(z)!0.5!(fm)$) |- (zm); 
+
+
+  \node[input, left = 1.5cm of z, yshift=1.5cm] (ct1) {$\vec{c}_{t-1}$};
+  \path[] (ct1) edge[bend left=25] (fc) node[below = 0cm of fc] {$\odot$}; 
+
+
+  \node[input, above = 3cm of ct1] (ht1) {$\vec{h}_{t-1}$};
+  \node[input, below = 7cm of z] (x) {$\vec{x}_t$};
+
+  \draw[] (x) -- (z) node[op left] {$\cons$};
+  \draw[] (ht1) -| (z);
+
+  \node[opacity=0.5] at ($(ht1)!0.5!(ct1)$) {\LARGE $\vec{s}_{t-1}$};
+  \node[nice-red, opacity=0.5] at ($(htt)!0.5!(st)$) {\LARGE $\vec{s}_t$};
+
+
+\end{tikzpicture}
+\end{document}
