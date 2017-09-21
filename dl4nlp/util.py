@@ -18,11 +18,11 @@ def to_numpy(x, transpose=True):
     return x
 
 
-def plot_matrix(x, annotate=True):
-    ax = sns.heatmap(x, cbar=False, square=True, annot=annotate)
-    ax.set(xticklabels=[])
-    ax.set(yticklabels=[])
-    plt.show()
+# def plot_matrix(x, annotate=True):
+#     ax = sns.heatmap(x, cbar=False, square=True, annot=annotate)
+#     ax.set(xticklabels=[])
+#     ax.set(yticklabels=[])
+#     plt.show()
 
 
 # from https://gist.github.com/dwf/292018
