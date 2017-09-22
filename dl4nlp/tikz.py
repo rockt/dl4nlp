@@ -3,6 +3,7 @@ import os
 import random
 import numpy as np
 import torch
+from torch.autograd import Variable
 
 tikzstandalone = r"""
 \documentclass[tikz]{standalone}
@@ -51,6 +52,8 @@ def get_color(p, xmin=-1, xmax=1, upper_color="nice-blue", lower_color="nice-red
 
 
 def plot_matrix(M, xmin=None, xmax=None):
+    if isinstance(M, Variable):
+        M = M.data
     if xmin is None or xmax is None:
         xmin = M.min()
         xmax = M.max()
@@ -87,17 +90,17 @@ def ticks(xticks=None, yticks=None):
     if yticks is not None:
         for i, y in enumerate(yticks):
             ix = len(yticks) - i
-            tmp += r"\node[anchor=east] at (-0.5, %d+0.5) {%s};" % (ix, y)
+            tmp += r"\node[anchor=east] at (-0.5, %d-0.5) {%s};" % (ix, y)
     return tmp
 
 
 def labels(M, xlabel=None, ylabel=None):
-    xsize, ysize = M.size()
+    ysize, xsize = M.size()
     tmp = ""
     if xlabel is not None:
-        tmp += r"\node[anchor=north] at (%d,0) {%s};" % (xsize / 2 + 1, xlabel)
+        tmp += r"\node[anchor=north] at (%f-0.5,0) {%s};" % (xsize / 2.0, xlabel)
     if ylabel is not None:
-        tmp += r"\node[anchor=east] at (-0.5,%d) {%s};" % (ysize / 2 - 1, ylabel)
+        tmp += r"\node[anchor=east] at (-0.5,%f) {%s};" % (ysize / 2.0, ylabel)
     return tmp
 
 

@@ -2,7 +2,6 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-
 batch_size, seq_length, k_in, k_out, vocab_size = (3, 5, 2, 3, 9)
 emb = nn.Embedding(vocab_size, k_in)
 
