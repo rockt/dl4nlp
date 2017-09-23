@@ -42,6 +42,8 @@ def tikz(body, filename=str(random.randint(0, 1e8)), directory="/tmp/tikzmagic/"
 
 def get_color(p, xmin=-1, xmax=1, upper_color="nice-blue", lower_color="nice-red", center_color="nice-yellow"):
     diff = xmax - xmin
+    if diff == 0:
+        raise ArithmeticError(xmax, xmin, diff)
     color = ""
     p = (p - xmin) / diff * 100
     if p < 50:
@@ -94,14 +96,18 @@ def ticks(xticks=None, yticks=None):
     return tmp
 
 
-def labels(M, xlabel=None, ylabel=None):
-    ysize, xsize = M.size()
+def label(xsize, ysize, xlabel=None, ylabel=None):
     tmp = ""
     if xlabel is not None:
-        tmp += r"\node[anchor=north] at (%f-0.5,0) {%s};" % (xsize / 2.0, xlabel)
+        tmp += r"\node[anchor=north] at (%f-0.5,0) {%s};" % (xsize, xlabel)
     if ylabel is not None:
-        tmp += r"\node[anchor=east] at (-0.5,%f) {%s};" % (ysize / 2.0, ylabel)
+        tmp += r"\node[anchor=east] at (-0.5,%f) {%s};" % (ysize, ylabel)
     return tmp
+
+
+def labels(M, xlabel=None, ylabel=None):
+    ysize, xsize = M.size()
+    return label(xsize / 2.0, ysize / 2.0, xlabel, ylabel)
 
 
 def plot_tikz(xs, xdist=1, ydist=1):
@@ -125,4 +131,4 @@ def plot_tikz(xs, xdist=1, ydist=1):
 
 
 def shift(tikz, x=0, y=0):
-    return r"\begin{scope}[shift={(%d,%d)}]" % (x, y) + "\n" + tikz + r"\end{scope}" + "\n"
+    return r"\begin{scope}[shift={(%4.2f,%4.2f)}]" % (x, y) + "\n" + tikz + r"\end{scope}" + "\n"
