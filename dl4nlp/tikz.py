@@ -53,7 +53,7 @@ def get_color(p, xmin=-1, xmax=1, upper_color="nice-blue", lower_color="nice-red
     return color
 
 
-def plot_matrix(M, xmin=None, xmax=None):
+def plot_matrix(M, xmin=None, xmax=None, varrows=False, harrows=False):
     if isinstance(M, Variable):
         M = M.data
     if xmin is None or xmax is None:
@@ -68,6 +68,10 @@ def plot_matrix(M, xmin=None, xmax=None):
             value = "%d" % M[ix, j] if isinstance(M, torch.LongTensor) else "%2.2f" % M[ix, j]
             tmp += "\draw[fill=%s] (-0.5+%d, %d) rectangle (0.5+%d, %d);\n" % (color, j, i, j, i + 1)
             tmp += r"\node[] at (%d, %d+0.5) {%s};" % (j, i, value) + "\n"
+            if varrows and ix > 0:
+                tmp += r"\draw[->, stealth] (%d, %d-1.0) -- (%d, %d);" % (j, i, j, i) + "\n"
+            if harrows and ix == 0 and j < M.size(1)-1:
+                tmp += r"\path[->, stealth] (%d+0.2, %d-1) edge[bend right=90] (%d+0.8, %d-1);" % (j, i, j, i) + "\n"
     return tmp
 
 
