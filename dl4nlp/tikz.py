@@ -71,7 +71,7 @@ def plot_matrix(M, xmin=None, xmax=None, varrows=False, harrows=False):
             if varrows and ix > 0:
                 tmp += r"\draw[->, stealth] (%d, %d-1.0) -- (%d, %d);" % (j, i, j, i) + "\n"
             if harrows and ix == 0 and j < M.size(1)-1:
-                tmp += r"\path[->, stealth] (%d+0.2, %d-1) edge[bend right=90] (%d+0.8, %d-1);" % (j, i, j, i) + "\n"
+                tmp += r"\path[->, stealth, color=nice-blue] (%d+0.2, %d-1) edge[bend right=60] (%d+0.8, %d-1);" % (j, i, j, i) + "\n"
     return tmp
 
 
